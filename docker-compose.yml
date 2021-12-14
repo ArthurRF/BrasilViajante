@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:latest
     container_name: ${DB_CONTAINER_NAME}
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -11,15 +12,15 @@ services:
     ports:
       - 5432:${POSTGRES_PORT}
 
-  app:
-    build: .
-    container_name: ${APP_NAME}
-    ports: 
-      - 5555:${APP_PORT}
-      - 9229:9229     # Debugger
-    volumes: 
-      - .:/usr/app
-    links:
-      - db
-    depends_on: 
-      - db
+  # app:
+  #   build: .
+  #   container_name: ${APP_NAME}
+  #   ports: 
+  #     - 5555:${APP_PORT}
+  #     - 9229:9229     # Debugger
+  #   volumes: 
+  #     - .:/usr/app
+  #   links:
+  #     - db
+  #   depends_on: 
+  #     - db
