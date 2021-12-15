@@ -1,18 +1,47 @@
-import express, { Request, Response, NextFunction } from 'express';
-require('dotenv').config();
+import { ApolloServer } from 'apollo-server-express';
+import { GraphQLError } from 'graphql';
+import { GraphQLResponse } from 'apollo-server-types';
 
-const app = express();
+import app from '@shared/infra/http/app';
+import createSchema from '@shared/infra/http/graphql/utils/createSchema';
+import AppError from '@shared/errors/AppError';
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  if (err instanceof Error) {
-    return res.status(400).json(err.message);
-  }
+async function startApolloServer(): Promise<void> {
+  const schema = await createSchema();
+  const apolloServer = new ApolloServer({
+    schema,
+    context: ({ req, res }): unknown => ({ req, res }),
+    formatResponse: (response, query): GraphQLResponse => {
+      const { context } = query;
 
-  return res.status(500).json(err);
-})
+      (context as any).res.set(
+        'Access-Control-Expose-Headers',
+        'Authorization, x-refresh-token'
+      );
+      (context as any).res.set(
+        'Authorization',
+        (context as any).req.headers.authorization as string
+      );
+      (context as any).res.set(
+        'x-refresh-token',
+        (context as any).req.headers['x-refresh-token'] as string
+      );
 
-app.get('/', (req: Request, res: Response) => {
-  return res.json({ message: `Rodando na porta ${process.env.APP_PORT}` });
-})
+      return response as GraphQLResponse;
+    },
+    introspection: true,
+    formatError: (error: AppError): AppError => {
+      if (error instanceof GraphQLError) {
+        return new AppError(error.message);
+      }
+    }
+  });
 
-app.listen(process.env.APP_PORT, () => console.log(`Server is running on port ${process.env.APP_PORT}!`));
+  apolloServer.applyMiddleware({ app });
+}
+
+startApolloServer();
+
+export default app.listen(process.env.APP_PORT, () => {
+  console.log(`🚀 Server is running on port ${process.env.APP_PORT}!`)
+});
