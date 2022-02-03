@@ -1,7 +1,7 @@
 {
-  "name": "storage2a",
+  "name": "viajabrasil",
   "version": "1.0.0",
-  "description": "A storage app",
+  "description": "A brazilian travel app",
   "main": "index.js",
   "author": "ArthurRFr",
   "license": "MIT",

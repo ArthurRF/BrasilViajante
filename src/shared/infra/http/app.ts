@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5555',
-      'http://www.storage2a.xyz',
+      'http://www.viajabrasil.xyz',
     ],
   })
 );
