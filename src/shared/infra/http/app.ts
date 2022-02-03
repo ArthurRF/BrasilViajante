@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5555',
-      'http://www.viajabrasil.xyz',
+      'http://www.brasilviajante.xyz',
     ],
   })
 );
