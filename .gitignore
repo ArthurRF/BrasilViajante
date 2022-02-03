@@ -1,6 +1,14 @@
-node_modules
-# Keep environment variables out of version control
+node_modules/
+package-lock.json
 .env
+ormconfig.json
+build
+
+tmp/*
+!tmp/.gitkeep
+
 dist
 yarn.lock
 yarn-error.log
+
+request_logs.log
