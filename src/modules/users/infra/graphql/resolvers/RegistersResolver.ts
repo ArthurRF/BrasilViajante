@@ -1,4 +1,4 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { container } from "tsyringe";
 
 import { User } from "@prisma/client";
@@ -36,6 +36,13 @@ class RegistersResolver {
     } catch (error: any) {
       throw new Error(error.message);
     }
+  }
+
+  @Query(() => String)
+  public async getUserDetailed(
+    @Arg('id') id: string
+  ): Promise<string> {
+    return `Hello user ${id}, method still not implemented`;
   }
 }
 
