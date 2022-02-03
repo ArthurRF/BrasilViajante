@@ -6,7 +6,7 @@
   "author": "ArthurRFr",
   "license": "MIT",
   "scripts": {
-    "dev:server": "cross-env NODE_ENV=dev ts-node-dev --inspect=9300 --respawn --watch 'src/**' --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/server.ts"
+    "dev": "cross-env NODE_ENV=dev ts-node-dev --inspect=9300 --respawn --watch 'src/**' --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/server.ts"
   },
   "dependencies": {
     "@prisma/client": "3.9.1",
