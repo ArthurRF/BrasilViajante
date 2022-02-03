@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5555
+EXPOSE 3333
 
 CMD ["yarn", "dev"]
