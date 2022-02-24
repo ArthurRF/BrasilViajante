@@ -12,15 +12,15 @@ services:
     ports:
       - 5432:${POSTGRES_PORT}
 
-  app:
-    build: .
-    container_name: ${APP_NAME}
-    ports: 
-      - 3333:${APP_PORT}
-      - 9229:9229     # Debugger
-    volumes: 
-      - .:/usr/app
-    links:
-      - db
-    depends_on: 
-      - db
+  # app:
+  #   build: .
+  #   container_name: ${APP_NAME}
+  #   ports: 
+  #     - 3333:${APP_PORT}
+  #     - 9229:9229     # Debugger
+  #   volumes: 
+  #     - .:/usr/app
+  #   links:
+  #     - db
+  #   depends_on: 
+  #     - db
