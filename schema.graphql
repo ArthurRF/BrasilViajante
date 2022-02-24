@@ -3,7 +3,27 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateFacebookUserInput {
+  email: String
+  facebook_id: Float!
+  name: String!
+}
+
+input CreateGoogleUserInput {
+  email: String
+  google_id: String!
+  name: String!
+}
+
+type LoginResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: UserType!
+}
+
 type Mutation {
+  registerFacebookUser(data: CreateFacebookUserInput!): LoginResponse!
+  registerGoogleUser(data: CreateGoogleUserInput!): LoginResponse!
   registerUser(data: RegisterUserInput!): UserType!
 }
 

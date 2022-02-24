@@ -2,7 +2,7 @@ import { InputType, Field } from 'type-graphql';
 import { MaxLength, IsEmail, IsNotEmpty } from 'class-validator';
 
 @InputType()
-export default class RegisterUserInput {
+class RegisterUserInput {
   @Field(() => String, { nullable: true })
   legal_registry_number: string;
 
@@ -21,3 +21,5 @@ export default class RegisterUserInput {
   @Field(() => String, { nullable: true })
   phone: string;
 }
+
+export { RegisterUserInput };

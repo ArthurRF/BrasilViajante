@@ -17,9 +17,12 @@ model User {
   email                 String   @db.VarChar(50) @unique
   password              String
   phone                 String?
+  active                Boolean  @default(true)
   created_at            DateTime @default(now())
   updated_at            DateTime @updatedAt @default(now())
   has_social_login      Boolean  @db.Boolean @default(false)
+  facebook_id           BigInt?
+  google_id             String?  @db.VarChar(50)
 
   @@map("users")
 }

@@ -1,5 +1,9 @@
 declare namespace Express {
   export interface Request {
+    session: {
+      userId: string;
+    }
+
     user: {
       id: string;
     };
@@ -10,6 +14,7 @@ declare namespace Express {
     'x-refresh-token': string;
     user: {
       id: string;
+      emails: string[];
     };
   }
 }

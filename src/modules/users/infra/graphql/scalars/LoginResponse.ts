@@ -3,7 +3,7 @@ import { ObjectType, Field } from 'type-graphql';
 import { UserType } from '../entities/UserType';
 
 @ObjectType()
-export default class LoginResponse {
+class LoginResponse {
   @Field()
   user: UserType;
 
@@ -13,3 +13,5 @@ export default class LoginResponse {
   @Field()
   refreshToken?: string;
 }
+
+export { LoginResponse };
