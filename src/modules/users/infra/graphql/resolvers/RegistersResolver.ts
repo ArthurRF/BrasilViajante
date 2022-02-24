@@ -15,6 +15,8 @@ import { CreateFacebookUserService } from "@modules/users/services/CreateFaceboo
 import AuthenticateOauthUserService from "@modules/users/services/AuthenticateOAuthUserService";
 import { CreateGoogleUserInput } from "../inputs/CreateGoogleUserInput";
 import CreateGoogleUserService from "@modules/users/services/CreateGoogleUserService";
+import { GetUserDetailService } from "@modules/users/services/GetUserDetailService";
+import AppError from "@shared/errors/AppError";
 
 @Resolver()
 class RegistersResolver {
@@ -62,15 +64,19 @@ class RegistersResolver {
         AuthenticateOauthUserService
       );
 
+      if (!email) {
+        throw new AppError('Email is required');
+      }
+
       const { user } = await createFacebookUser.execute({
         name,
-        email: email ? email.toLowerCase() : undefined,
+        email,
         facebook_id,
       });
 
       const userAuthorization = await authenticateOauthUser.execute(
         {
-          email: user.email,
+          email: user.email ? user.email.toLowerCase() : undefined,
           facebook_id,
           language_code: ctx.req.headers.languagecode as string,
         },
@@ -78,7 +84,7 @@ class RegistersResolver {
       );
 
       return {
-        user: userAuthorization.user,
+        user: userAuthorization.user as unknown as UserType,
         accessToken: userAuthorization.accessToken,
         refreshToken: userAuthorization.refreshToken,
       };
@@ -103,6 +109,10 @@ class RegistersResolver {
         AuthenticateOauthUserService
       );
 
+      if (!email) {
+        throw new AppError('Email is required');
+      }
+
       const { user } = await createGoogleUser.execute({
         name,
         email: email.toLowerCase(),
@@ -111,14 +121,14 @@ class RegistersResolver {
 
       const userAuthorization = await authenticateOauthUser.execute(
         {
-          email: user.email,
+          email: user.email ?? undefined,
           language_code: ctx.req.headers.languagecode as string,
         },
         ctx
       );
 
       return {
-        user: userAuthorization.user,
+        user: userAuthorization.user as unknown as UserType,
         accessToken: userAuthorization.accessToken,
         refreshToken: userAuthorization.refreshToken,
       };
@@ -127,11 +137,17 @@ class RegistersResolver {
     }
   }
 
-  @Query(() => String)
+  @Query(() => UserType)
   public async getUserDetailed(
     @Arg('id') id: string
-  ): Promise<string> {
-    return `Hello user ${id}, method still not implemented`;
+  ): Promise<User> {
+    const getUserDetail = container.resolve(
+      GetUserDetailService
+    );
+
+    const userDetail = await getUserDetail.execute(id);
+
+    return userDetail;
   }
 }
 

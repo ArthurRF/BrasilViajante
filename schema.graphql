@@ -15,6 +15,11 @@ input CreateGoogleUserInput {
   name: String!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type LoginResponse {
   accessToken: String!
   refreshToken: String!
@@ -28,7 +33,7 @@ type Mutation {
 }
 
 type Query {
-  getUserDetailed(id: String!): String!
+  getUserDetailed(id: String!): UserType!
 }
 
 input RegisterUserInput {
@@ -40,10 +45,16 @@ input RegisterUserInput {
 }
 
 type UserType {
+  active: Boolean!
+  created_at: DateTime!
   email: String
+  facebook_id: Float
+  google_id: String
+  has_social_login: Boolean
   id: ID!
   legal_registry_number: String
   name: String!
-  password: String!
+  password: String
   phone: String
+  updated_at: DateTime!
 }

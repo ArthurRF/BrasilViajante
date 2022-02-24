@@ -5,8 +5,9 @@ import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
 
 interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<User>;
-  findByEmail(email: string): Promise<User | undefined>;
-  findByFacebookId(facebook_id: number): Promise<User | undefined>;
+  findById(id: string): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+  findByFacebookId(facebook_id: number): Promise<User | null>;
   findByGoogleId(google_id: string): Promise<User | null>;
   update(
     id: string,

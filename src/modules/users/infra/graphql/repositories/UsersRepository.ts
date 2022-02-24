@@ -33,7 +33,18 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findById(id: string): Promise<User | null> {
+    const user = await prisma.user.findFirst({
+      where: {
+        id,
+        active: true,
+      }
+    });
+
+    return user;
+  }
+
+  public async findByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
         email
@@ -78,7 +89,7 @@ class UsersRepository implements IUsersRepository {
       data: {
         facebook_id: updated_data.facebook_id ? updated_data.facebook_id : null,
         google_id: updated_data.google_id ? updated_data.google_id : null,
-        name: updated_data.name ? updated_data.name : null,
+        name: updated_data.name ? updated_data.name : undefined,
         legal_registry_number: updated_data.legal_registry_number ? updated_data.legal_registry_number : null,
         email: updated_data.email ? updated_data.email : null,
       }

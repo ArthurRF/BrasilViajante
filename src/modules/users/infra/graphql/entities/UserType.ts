@@ -14,11 +14,29 @@ class UserType {
   @Field(() => String)
   name: string;
 
-  @Field(() => String)
-  password: string;
+  @Field(() => String, { nullable: true })
+  password?: string;
 
   @Field(() => String, { nullable: true })
   phone: string;
+
+  @Field(() => Boolean, { defaultValue: false })
+  has_social_login: boolean;
+
+  @Field({ nullable: true })
+  facebook_id?: number;
+
+  @Field(() => String, { nullable: true })
+  google_id?: string;
+
+  @Field(() => Boolean)
+  active: boolean;
+
+  @Field(() => Date)
+  created_at: Date;
+
+  @Field(() => Date)
+  updated_at: Date;
 }
 
 export { UserType };
