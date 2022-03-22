@@ -1,12 +1,12 @@
-// import { Mutation, Arg, Ctx } from 'type-graphql';
+// import { Mutation, Arg } from 'type-graphql';
 // import { container } from 'tsyringe';
 
 // import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
-// import LoginUserInput from '../inputs/LoginUserInput';
+// import { LoginUserInput } from '../inputs/LoginUserInput';
 // import { ILoginContext } from '../context/ILoginContext';
 
-// import LoginResponse from '@modules/users/infra/graphql/scalars/LoginResponse';
+// import { LoginResponse } from '@modules/users/infra/graphql/scalars/LoginResponse';
 
 // class LoginResolver {
 //   @Mutation(() => LoginResponse)

@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 
-import AppError from '@shared/errors/AppError';
+import { AppError } from '@shared/errors/AppError';
 
 import { ILoginContext } from '../infra/graphql/context/ILoginContext';
 import { IUsersRepository } from '../repositories/IUsersRepository';
@@ -23,17 +23,17 @@ interface IResponse {
 }
 
 @injectable()
-export default class AuthenticateOauthUserService {
+class AuthenticateOauthUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository
   ) { }
 
   public async execute(
-    { email, apple_id, facebook_id, language_code }: IRequest,
+    { email, facebook_id }: IRequest,
     context: ILoginContext
   ): Promise<IResponse> {
-    let user: User;
+    let user: User | null = null;
 
     if (email && !facebook_id) {
       user = await this.usersRepository.findByEmail(email);
@@ -72,3 +72,5 @@ export default class AuthenticateOauthUserService {
     };
   }
 }
+
+export { AuthenticateOauthUserService };

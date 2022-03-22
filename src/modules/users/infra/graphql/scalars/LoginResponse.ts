@@ -1,11 +1,10 @@
+import { User } from '@prisma/generated/type-graphql';
 import { ObjectType, Field } from 'type-graphql';
-
-import { UserType } from '../entities/UserType';
 
 @ObjectType()
 class LoginResponse {
   @Field()
-  user: UserType;
+  user: User;
 
   @Field()
   accessToken: string;

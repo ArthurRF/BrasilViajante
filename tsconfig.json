@@ -21,7 +21,8 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@prisma/*": ["../prisma/*"],
     }
   },
   "exclude": ["node_modules", "build"],

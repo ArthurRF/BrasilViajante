@@ -1,8 +1,7 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { container } from "tsyringe";
 
-import { User } from "@prisma/client";
-import { UserType } from "@modules/users/infra/graphql/entities/UserType";
+import { User } from "@prisma/generated/type-graphql";
 
 import { ILoginContext } from "../context/ILoginContext";
 
@@ -12,15 +11,15 @@ import { CreateFacebookUserInput } from "@modules/users/infra/graphql/inputs/Cre
 import { LoginResponse } from "../scalars/LoginResponse";
 import { CreateUserService } from "@modules/users/services/CreateUserService";
 import { CreateFacebookUserService } from "@modules/users/services/CreateFacebookUserService";
-import AuthenticateOauthUserService from "@modules/users/services/AuthenticateOAuthUserService";
+import { AuthenticateOauthUserService } from "@modules/users/services/AuthenticateOAuthUserService";
 import { CreateGoogleUserInput } from "../inputs/CreateGoogleUserInput";
-import CreateGoogleUserService from "@modules/users/services/CreateGoogleUserService";
+import { CreateGoogleUserService } from "@modules/users/services/CreateGoogleUserService";
 import { GetUserDetailService } from "@modules/users/services/GetUserDetailService";
-import AppError from "@shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 @Resolver()
 class RegistersResolver {
-  @Mutation(() => UserType)
+  @Mutation(() => User)
   async registerUser(
     @Arg('data')
     {
@@ -84,7 +83,7 @@ class RegistersResolver {
       );
 
       return {
-        user: userAuthorization.user as unknown as UserType,
+        user: userAuthorization.user,
         accessToken: userAuthorization.accessToken,
         refreshToken: userAuthorization.refreshToken,
       };
@@ -128,7 +127,7 @@ class RegistersResolver {
       );
 
       return {
-        user: userAuthorization.user as unknown as UserType,
+        user: userAuthorization.user,
         accessToken: userAuthorization.accessToken,
         refreshToken: userAuthorization.refreshToken,
       };
@@ -137,7 +136,7 @@ class RegistersResolver {
     }
   }
 
-  @Query(() => UserType)
+  @Query(() => User)
   public async getUserDetailed(
     @Arg('id') id: string
   ): Promise<User> {

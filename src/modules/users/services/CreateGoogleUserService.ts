@@ -11,7 +11,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class CreateGoogleUserService {
+class CreateGoogleUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository
@@ -64,3 +64,5 @@ export default class CreateGoogleUserService {
     };
   }
 }
+
+export { CreateGoogleUserService }

@@ -8,4 +8,4 @@ class AppError extends GraphQLError {
   }
 }
 
-export default AppError;
+export { AppError };

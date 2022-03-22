@@ -1,5 +1,5 @@
 import { InputType, Field } from 'type-graphql';
-import { MaxLength, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 @InputType()
 class RegisterUserInput {

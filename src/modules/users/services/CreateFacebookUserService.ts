@@ -23,7 +23,7 @@ class CreateFacebookUserService {
     email: facebookUserEmail,
     facebook_id,
   }: IRequest): Promise<RegisterResponse> {
-    let checkUserExistsWithGivenEmail: User | undefined;
+    let checkUserExistsWithGivenEmail: User | null = null;
 
     if (facebookUserEmail) {
       checkUserExistsWithGivenEmail = await this.usersRepository.findByEmail(

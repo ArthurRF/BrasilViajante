@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""
+The `BigInt` scalar type represents non-fractional signed whole numeric values.
+"""
+scalar BigInt
+
 input CreateFacebookUserInput {
   email: String
   facebook_id: Float!
@@ -23,17 +28,17 @@ scalar DateTime
 type LoginResponse {
   accessToken: String!
   refreshToken: String!
-  user: UserType!
+  user: User!
 }
 
 type Mutation {
   registerFacebookUser(data: CreateFacebookUserInput!): LoginResponse!
   registerGoogleUser(data: CreateGoogleUserInput!): LoginResponse!
-  registerUser(data: RegisterUserInput!): UserType!
+  registerUser(data: RegisterUserInput!): User!
 }
 
 type Query {
-  getUserDetailed(id: String!): UserType!
+  getUserDetailed(id: String!): User!
 }
 
 input RegisterUserInput {
@@ -44,14 +49,14 @@ input RegisterUserInput {
   phone: String
 }
 
-type UserType {
+type User {
   active: Boolean!
   created_at: DateTime!
   email: String
-  facebook_id: Float
+  facebook_id: BigInt
   google_id: String
-  has_social_login: Boolean
-  id: ID!
+  has_social_login: Boolean!
+  id: String!
   legal_registry_number: String
   name: String!
   password: String

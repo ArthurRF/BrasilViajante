@@ -4,7 +4,7 @@ import { GraphQLResponse } from 'apollo-server-types';
 
 import app from '@shared/infra/http/app';
 import createSchema from '@shared/infra/http/graphql/utils/createSchema';
-import AppError from '@shared/errors/AppError';
+import { AppError } from '@shared/errors/AppError';
 
 async function startApolloServer(): Promise<void> {
   const schema = await createSchema();
@@ -33,6 +33,8 @@ async function startApolloServer(): Promise<void> {
     formatError: (error: AppError): AppError => {
       if (error instanceof GraphQLError) {
         return new AppError(error.message);
+      } else {
+        return error;
       }
     }
   });

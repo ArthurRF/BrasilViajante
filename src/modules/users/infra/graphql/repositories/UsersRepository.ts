@@ -87,11 +87,11 @@ class UsersRepository implements IUsersRepository {
         id,
       },
       data: {
-        facebook_id: updated_data.facebook_id ? updated_data.facebook_id : null,
-        google_id: updated_data.google_id ? updated_data.google_id : null,
-        name: updated_data.name ? updated_data.name : undefined,
-        legal_registry_number: updated_data.legal_registry_number ? updated_data.legal_registry_number : null,
-        email: updated_data.email ? updated_data.email : null,
+        facebook_id: updated_data.facebook_id,
+        google_id: updated_data.google_id,
+        name: updated_data.name,
+        legal_registry_number: updated_data.legal_registry_number,
+        email: updated_data.email,
       }
     })
 

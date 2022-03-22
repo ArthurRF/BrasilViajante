@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
+import { AppError } from '@shared/errors/AppError';
 
 import { User } from '@prisma/client';
 
@@ -29,10 +29,12 @@ class CreateUserService {
     password,
     phone
   }: IRequest): Promise<User> {
-    const checkUserExists = await this.usersRepository.findByEmail(email);
+    if (email) {
+      const checkUserExists = await this.usersRepository.findByEmail(email);
 
-    if (checkUserExists) {
-      throw new AppError('Email already used.');
+      if (checkUserExists) {
+        throw new AppError('Email already used.');
+      }
     }
 
     const hashedPassword = await hash(password, 10);
